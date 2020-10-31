@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rent calculator</title>
+    <style>
+      .item {
+        margin: 1rem;
+      }
+
+      .container {
+        max-width: 300px;
+        margin: auto;
+      }
+
+      .btn {
+        margin: 1rem;
+        padding: 0.5rem;
+        border-radius: 5%;
+      }
+
+      input {
+        padding: 0.5rem;
+      }
+      .output-item {
+        margin: 1rem;
+        border-bottom: 1px solid green;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .output-total {
+        border: 2px solid green;
+        padding: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">
+        <input id="visa" type="number" placeholder="Viša struja" /> Kwh
+      </div>
+      <div class="item">
+        <input id="niza" type="number" placeholder="Niža struja" /> kWh
+      </div>
+      <div class="item">
+        <input id="voda" type="number" placeholder="Voda" /> m3
+      </div>
+      <div class="item">
+        <input id="telefon" type="number" placeholder="Telefon" /> HRK
+      </div>
+      <button id="izracunaj" class="btn">Izracunaj</button>
+      <div id="output-form" class="hidden">
+        <div class="output-item">
+          Struja: <span id="struja-value"></span> HRK
+        </div>
+        <div class="output-item">Voda: <span id="voda-value"></span> HRK</div>
+        <div class="output-item">
+          Telefon: <span id="telefon-value"></span> HRK
+        </div>
+        <div class="output-item">
+          Internet: <span id="internet-value"> </span> HRK
+        </div>
+        <div class="output-item">
+          Stanarina: <span id="rent-value"></span> HRK
+        </div>
+        <div class="output-total">Total: <span id="total"></span> HRK</div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const INTERNET = 159;
+    const RENT = 2000;
+    const visaField = document.getElementById("visa");
+    const nizaField = document.getElementById("niza");
+    const vodaField = document.getElementById("voda");
+    const telefonField = document.getElementById("telefon");
+
+    const izracunajBttn = document.getElementById("izracunaj");
+    const outputForm = document.getElementById("output-form");
+
+    izracunajBttn.addEventListener("click", function () {
+      const visa = parseFloat(visaField.value) || 0;
+      const niza = parseFloat(nizaField.value) || 0;
+      const voda = parseFloat(vodaField.value) || 0;
+      const telefon = telefonField.value || 0; // not mandatory, can be 0kn
+
+      // if (isNaN(visa) || isNaN(niza) || isNaN(voda)) {
+      //   alert("Molimo popunite sva polja");
+      //   return;
+      // }
+
+      const visaStruja = parseFloat(visa * 0.84);
+      const nizaStruja = parseFloat(niza * 0.41);
+      const vodaTotal = parseFloat(voda * 12);
+      const konstantnaValue = 17.4;
+
+      const pureKws = (niza + visa) * 0.105;
+
+      const strujaBezPDV = visa
+        ? pureKws + konstantnaValue + visaStruja + nizaStruja
+        : 0;
+
+      const totalStruja = strujaBezPDV * 1.13;
+
+      const total = totalStruja + vodaTotal + telefon + INTERNET + RENT;
+
+      outputForm.setAttribute("class", "");
+      document.getElementById("struja-value").textContent = totalStruja.toFixed(
+        2
+      );
+      document.getElementById("voda-value").textContent = vodaTotal.toFixed(2);
+      document.getElementById("telefon-value").textContent = telefon.toFixed(2);
+      document.getElementById("internet-value").textContent = INTERNET;
+      document.getElementById("rent-value").textContent = RENT;
+      document.getElementById("total").textContent = total.toFixed(2);
+    });
+  </script>
+</html>
