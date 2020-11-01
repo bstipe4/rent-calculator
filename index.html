@@ -87,7 +87,7 @@
       const visa = parseFloat(visaField.value) || 0;
       const niza = parseFloat(nizaField.value) || 0;
       const voda = parseFloat(vodaField.value) || 0;
-      const telefon = telefonField.value || 0; // not mandatory, can be 0kn
+      const telefon = parseFloat(telefonField.value) || 0; // not mandatory, can be 0kn
 
       // if (isNaN(visa) || isNaN(niza) || isNaN(voda)) {
       //   alert("Molimo popunite sva polja");
