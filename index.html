@@ -94,18 +94,16 @@
       //   return;
       // }
 
-      const visaStruja = parseFloat(visa * 0.84);
-      const nizaStruja = parseFloat(niza * 0.41);
-      const vodaTotal = parseFloat(voda * 12);
-      const konstantnaValue = 17.4;
+      const visaStruja = parseFloat(visa * 1.08);
+      const nizaStruja = parseFloat(niza * 0.51);
+      const vodaTotal = parseFloat(voda * 13);
+      const konstantnaValue = 21.47;
 
-      const pureKws = (niza + visa) * 0.105;
+      const obnovljiviIzvori = (visa + niza) * 0.118
 
-      const strujaBezPDV = visa
-        ? pureKws + konstantnaValue + visaStruja + nizaStruja
+      const totalStruja = visa
+        ? visaStruja + nizaStruja + konstantnaValue + obnovljiviIzvori
         : 0;
-
-      const totalStruja = strujaBezPDV * 1.13;
 
       const total = totalStruja + vodaTotal + telefon + INTERNET + RENT;
 
